@@ -1,0 +1,80 @@
+﻿@model CGWEB.Entities.RestaurantEnt
+
+@{
+    ViewBag.Title = "Restaurant";
+}
+
+<div class="pagetitle">
+    <h1 class="mt-2">Restaurantes</h1>
+</div>
+
+@if (ViewBag.MsjPantalla != null)
+{
+    <div style="color:white" class="alert alert-danger text-danger" role="alert">
+        @ViewBag.MsjPantalla
+    </div>
+}
+
+@using (Html.BeginForm("AddRestaurant", "Restaurant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Detalles</h5>
+
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.Restaurant_name, new { @type = "text", @class = "form-control", @placeholder = "Nombre restaurante" })
+                        <label for="floatingSelect">Nombre restaurante</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.Address, new { @type = "text", @class = "form-control", @placeholder = "Dirección" })
+                        <label for="floatingSelect">Dirección</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.Phone_number, new { @type = "text", @class = "form-control", @placeholder = "Teléfono" })
+                        <label for="floatingSelect">Teléfono</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @placeholder = "Descripción", @id = "floatingTextarea", @style = "height: 200px; resize: none;" })
+                        <label for="floatingTextarea">Descripción</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.Website, new { @type = "text", @class = "form-control", @placeholder = "Sitio Web" })
+                        <label for="floatingSelect">Sitio Web (Opcional)</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <input type="file" id="image" name="image" class="form-control" accept="image/png, image/jpg, image/jpeg" />
+                        <label for="floatingSelect">Imagen</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.Location_map, new { @type = "text", @class = "form-control", @placeholder = "Mapa" })
+                        <label for="floatingSelect">Mapa</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

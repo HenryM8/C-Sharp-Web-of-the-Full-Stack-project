@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CGWEB.Entities.UserEnt>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-default">
+            <div class="card-header" style="margin-inline: 20px">
+                <div class="pagetitle">
+                    <h1 class="mt-2">Usuarios</h1>
+                </div>
+            </div>
+            <div class="card-body my-2">
+                <table class="datatable">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Nombre de usuario</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                            <th>Reseñas</th>
+                            @*<th>Editar</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@item.Url_image" alt="foto usuario" height="100" width="100" class="rounded-3" style="object-fit: cover" />
+                                </td>
+                                <td>@item.Username</td>
+                                <td>@item.Mail</td>
+                                <td>@item.Rol_name</td>
+                                <td>@item.Reviews</td>
+                                @*<td style="text-align:center">
+                                        <a href="@Url.Action("EditUser","User", new { q = item.User_id })"><i class="bi bi-pencil-square"></i></a>
+                                    </td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

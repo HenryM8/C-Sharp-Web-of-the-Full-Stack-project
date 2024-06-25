@@ -1,0 +1,138 @@
+﻿@model CGWEB.Entities.RestaurantEnt
+
+@{
+    ViewBag.Title = "Restaurant";
+}
+
+<main>
+    <section class="row pt-1 px-2" id="restaurant-view">
+        <article class="col-12 p-2 shadow bg-white rounded-4">
+            <div class="cover">
+                <img src="@Model.Url_image" class="cover-img w-100 rounded-4" alt="restaurant image">
+                <section class="cover-body">
+                    @*INICIO INFORMACION DEL RESTAURANTE*@
+                    <div class="restaurant-info">
+                        <div>
+                            <h4 class="ps-5">@Model.Restaurant_name</h4>
+                            <div class="restaurant-rating ps-5">
+                                <div class="d-flex justify-content-end" style="text-align: left; direction: rtl; unicode-bidi: bidi-override;">
+                                    @for (int i = 5; i >= 1; i--)
+                                    {
+                                        if (Model.Stars_count < i)
+                                        {
+                                            <p style="color: grey; font-size: 32px">★</p>
+                                        }
+                                        else
+                                        {
+                                            <p style="color: orange; font-size: 32px">★</p>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-12 ps-5">
+                                <p class="text-white w-50">@Model.Description</p>
+                            </div>
+                            <ul class="tags ps-5">
+                                @foreach (var tag in ViewBag.TagList)
+                                {
+                                    <li>#@tag.Tag_name</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="ps-5 mb-2">
+                            <i class="bi bi-telephone me-2 text-white"></i><span class="text-white">@Model.Phone_number</span>
+                        </div>
+                        <div class="ps-5 mb-2">
+                            <i class="bi bi-globe me-2 text-white"></i><a href="@Model.Website" class="text-white">@Model.Restaurant_name</a>
+                        </div>
+                        <div class="ps-5">
+                            <i class="bi bi-geo-alt me-2 text-white"></i><span class="text-white">@Model.Address</span>
+                        </div>
+                    </div>
+                    @*FIN INFORMACION DEL RESTAURANTE*@
+                    <div class="restaurant-map">
+                        <iframe src="@Model.Location_map" height="250" width="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-4"></iframe>
+                    </div>
+                </section>
+            </div>
+        </article>
+    </section>
+
+    <section class="row pt-4" id="restaurant-reviews">
+        <div class="pagetitle">
+            <h1 class="mb-3">Reseñas</h1>
+        </div>
+        <section class="row">
+            @if (ViewBag.ReviewList.Count > 0)
+            {
+                foreach (var review in ViewBag.ReviewList)
+                {
+                    if (review.Is_visible)
+                    {
+                        <article class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4">
+                            <div class="card rounded-4 overflow-hidden">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <img src="@review.UserImg" alt="user image" class="rounded-circle me-2" height="65" width="65" style="object-fit: cover" />
+                                        <span class="card-title">@review.User</span>
+                                    </div>
+                                    <div class="d-flex">
+                                        @if (review.User_id.ToString() == Session["User_id_session"].ToString())
+                                        {
+                                            <ul class="d-flex align-items-center list-unstyled">
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link nav-profile d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                                                        <i class="bi bi-three-dots-vertical ps-2 pe-1 d-md-block"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile mt-2 rounded-4 p-2" style="margin-inline-end: -14px !important">
+                                                        <li>
+                                                            <a class="dropdown-item d-flex align-items-cente btn-edit-review" href="@Url.Action("EditReview", "Review", new { q = review.Review_id })">
+                                                                <i class="bi bi-pen"></i>
+                                                                <span>Editar</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <div onclick="deleteReview(@review.Review_id)" class="dropdown-item d-flex align-items-center btn-delete-review">
+                                                                <i class="bi bi-trash3"></i>
+                                                                <span>Eliminar</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="col-md-12">
+                                        <div class="d-flex justify-content-end" style="text-align: left; direction: rtl; unicode-bidi: bidi-override;">
+                                            @for (int i = 5; i >= 1; i--)
+                                            {
+                                                if (review.Rating < i)
+                                                {
+                                                    <p style="color: grey; font-size: 32px">★</p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="color: orange; font-size: 32px">★</p>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <p class="card-text" style="height: 120px; max-height: 200px; overflow: auto">@review.Review_content</p>
+                                </div>
+                                <span class="ps-4 text-secondary mb-3">@review.Review_date.ToString("yyyy/MM/dd")</span>
+                            </div>
+                        </article>
+                    }
+                }
+            }
+            else
+            {
+                <p>Aun no se han registrado reseñas para este restaurante</p>
+            }
+        </section>
+    </section>
+</main>
+

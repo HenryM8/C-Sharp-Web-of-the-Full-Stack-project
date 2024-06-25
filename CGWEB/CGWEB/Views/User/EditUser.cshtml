@@ -1,0 +1,55 @@
+﻿
+@model CGWEB.Entities.UserEnt
+
+@{
+    ViewBag.Title = "Editar perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pagetitle">
+    <h1 class="mt-2">Mis datos</h1>
+</div>
+
+@using (Html.BeginForm("EditUser", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Detalles</h5>
+
+            <div class="row g-3">
+
+                @Html.HiddenFor(m => m.User_id)
+
+                <div class="col-md-6">
+                    <img src="@Model.Url_image" alt="foto usuario" class="rounded-circle shadow mb-3" height="250" width="250" style="object-fit: cover; border: 5px solid white" />
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.Username, new { @type = "text", @class = "form-control input-lg", @placeholder = "Nombre de usuario" })
+                        <label for="floatingSelect">Nombre de usuario</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.Mail, new { @type = "email", @class = "form-control input-lg", @placeholder = "Correo Electrónico" })
+                        <label for="floatingSelect">Correo electrónico</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <input type="file" id="image" name="image" class="form-control" accept="image/png, image/jpg, image/jpeg" />
+                        <label for="floatingSelect">Imagen</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

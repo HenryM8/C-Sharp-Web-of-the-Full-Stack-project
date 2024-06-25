@@ -1,0 +1,36 @@
+﻿@model CGWEB.Entities.UserEnt
+
+@{
+    ViewBag.Title = "Perfil de Usuario";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-default">
+            <div class="card-header" style="margin-inline: 20px">
+                <div class="pagetitle">
+                    <h1 class="mt-2">Mi Perfil</h1>
+                </div>
+            </div>
+            <div class="card-body my-2 pt-3">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
+                        <img src="@Model.Url_image" alt="foto usuario" class="rounded-circle w-100 shadow-lg" style="object-fit: cover; border: 5px solid white" />
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-10 pt-3">
+                        <div class="d-flex">
+                            <h4 class="fw-bold text-capitalize">@Model.Username</h4>
+                            <a href="@Url.Action("EditUser","User", new { q = @Model.User_id })" class="btn text-primary p-0 ms-2"><i class="bi bi-pencil-square"></i></a>
+                        </div>
+                        <p class="text-secondary">@Model.Mail</p>
+                        <p><strong>Activo desde:</strong> @Model.Register_date.ToString("yyyy/MM/dd")</p>
+                        <a class="btn btn-add me-2" style="font-size: 14px" href="@Url.Action("ReviewsByUser", "Review", new { q = @Session["User_id_session"].ToString() })">
+                            Mis reseñas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

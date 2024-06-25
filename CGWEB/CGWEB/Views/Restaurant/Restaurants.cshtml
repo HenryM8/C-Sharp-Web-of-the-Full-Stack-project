@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CGWEB.Entities.RestaurantEnt>
+
+@{
+    ViewBag.Title = "Restaurants";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-default">
+            <div class="card-header" style="margin-inline: 20px">
+                <div class="pagetitle">
+                    <h1 class="mt-2">Restaurantes</h1>
+                    <a href="@Url.Action("Restaurant", "Restaurant")" class="btn btn-add mt-2">Agregar</a>
+                </div>
+            </div>
+            <div class="card-body my-2">
+                <table class="datatable">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Restaurante</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Valoración</th>
+                            <th>Estado</th>
+                            <th>Cambiar estado</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@item.Url_image" alt="foto restaurante" height="200" width="260" style="object-fit: cover" class="rounded-2"/>
+                                </td>
+                                <td>@item.Restaurant_name</td>
+                                <td>@item.Address</td>
+                                <td>@item.Phone_number</td>
+                                <td>@Math.Round(item.Stars_count, 1)</td>
+                                @if (item.Is_visible == true)
+                                {
+                                    <td><i class="bi bi-eye text-success"></i></td>
+                                }
+                                else
+                                {
+                                    <td><i class="bi bi-eye-slash text-danger"></i></td>
+                                }
+                                <td style="text-align:center">
+                                    <a href="@Url.Action("ChangeRestaurantVisibility","Restaurant", new { q = item.Restaurant_id })"><i class="bi bi-arrow-down-up"></i></a>
+                                </td>
+                                <td style="text-align:center">
+                                    <a href="@Url.Action("EditRestaurant","Restaurant", new { q = item.Restaurant_id })"><i class="bi bi-pencil-square"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

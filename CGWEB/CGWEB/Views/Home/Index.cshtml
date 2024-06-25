@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CGWEB.Entities.RestaurantEnt>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@{
+    var reviews = ((IEnumerable<CGWEB.Entities.ReviewEnt>)ViewBag.ReviewList);
+}
+
+<main>
+    <div class="pagetitle">
+        <h1>Bienvenido @Session["Username_session"].ToString()!</h1>
+        <h6>Explorar restaurantes para <span class="fw-bold">valorar</span></h6>
+    </div>
+
+    <section class="row pt-4 g-3" id="restaurants">
+        @foreach (var item in Model)
+        {
+            if (item.Is_visible)
+            {
+                <article class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+                    <section class="overflow-hidden shadow-sm restaurant-card rounded-4">
+                        <img src="@item.Url_image" height="300" class="w-100 restaurant-card-img" style="object-fit: cover" alt="restaurant image">
+                        <div class="image-container">
+                            <img src="@item.Url_image" class="w-100" alt="restaurant image">
+                            <div class="blur-overlay d-flex flex-column justify-content-between align-items-start">
+                                <h4 class="text-white pt-4 px-4  fw-semibold">@item.Restaurant_name</h4>
+                                <div class="px-4 mb-4 restaurant-card-btn">
+
+                                    @{
+                                        bool exists = reviews.Any(obj => obj.Restaurant_id == item.Restaurant_id);
+                                        if (exists)
+                                        {
+                                            <a href="@Url.Action("Review","Review", new { q = item.Restaurant_id })" class="btn btn-sm btn-outline-light rounded-5 me-1 disabled">
+                                                <i class="bi bi-star"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Review","Review", new { q = item.Restaurant_id })" class="btn btn-sm btn-outline-light rounded-5 me-1">
+                                                <i class="bi bi-star"></i>
+                                            </a>
+                                        }
+                                    }
+
+                                    <a href="@Url.Action("ViewRestaurant","Restaurant", new { q = item.Restaurant_id })" class="btn btn-sm btn-outline-light rounded-5">
+                                        <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            }
+        }
+    </section>
+</main>
+
