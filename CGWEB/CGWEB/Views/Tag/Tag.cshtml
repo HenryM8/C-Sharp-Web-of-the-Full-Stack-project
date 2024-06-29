@@ -1,0 +1,40 @@
+﻿@model CGWEB.Entities.TagEnt
+
+@{
+    ViewBag.Title = "Tag";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pagetitle">
+    <h1 class="mt-2">Etiquetas</h1>
+</div>
+
+@if (ViewBag.MsjPantalla != null)
+{
+    <div style="color:white" class="alert alert-danger text-danger" role="alert">
+        @ViewBag.MsjPantalla
+    </div>
+}
+
+@using (Html.BeginForm("AddTag", "Tag", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Detalles</h5>
+
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.Tag_name, new { @type = "text", @class = "form-control", @placeholder = "Nombre de la etiqueta" })
+                        <label for="floatingSelect">Nombre de la etiqueta</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

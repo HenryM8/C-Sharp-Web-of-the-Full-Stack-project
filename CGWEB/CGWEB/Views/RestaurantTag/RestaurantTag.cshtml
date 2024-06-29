@@ -1,0 +1,48 @@
+﻿@model CGWEB.Entities.RestaurantTagEnt
+
+@{
+    ViewBag.Title = "RestaurantTag";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pagetitle">
+    <h1 class="mt-2">Etiquetas para restaurantes</h1>
+</div>
+
+@if (ViewBag.MsjPantalla != null)
+{
+    <div style="color:white" class="alert alert-danger text-danger" role="alert">
+        @ViewBag.MsjPantalla
+    </div>
+}
+
+@using (Html.BeginForm("AddRestaurantTag", "RestaurantTag", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Detalles</h5>
+
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.DropDownListFor(m => m.Restaurant_id, ViewBag.RestaurantList as List<SelectListItem>, new { @class = "form-select", @id = "floatingSelect", @aria_label = "Restaurant_id" })
+                        <label for="floatingSelect">Restaurante</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.DropDownListFor(m => m.Tag_id, ViewBag.TagList as List<SelectListItem>, new { @class = "form-select", @id = "floatingSelect", @aria_label = "Tag_id" })
+                        <label for="floatingSelect">Etiqueta</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

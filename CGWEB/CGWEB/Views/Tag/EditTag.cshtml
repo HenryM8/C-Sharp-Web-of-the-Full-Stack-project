@@ -1,0 +1,39 @@
+﻿@model CGWEB.Entities.TagEnt
+
+@{
+    ViewBag.Title = "EditTag";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pagetitle">
+    <h1 class="mt-2">Etiqueta</h1>
+</div>
+
+@using (Html.BeginForm("EditTag", "Tag", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Detalles</h5>
+
+            <div class="row g-3">
+
+                @Html.HiddenFor(m => m.Tag_id)
+
+                @if (Session["Rol_id_session"].ToString() == "1")
+                {
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            @Html.TextBoxFor(m => m.Tag_name, new { @type = "text", @class = "form-control input-lg", @placeholder = "Rol" })
+                            <label for="floatingSelect">Nombre etiqueta</label>
+                        </div>
+                    </div>
+                }
+
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

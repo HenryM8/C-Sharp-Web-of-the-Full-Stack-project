@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CGWEB.Entities.RestaurantTagEnt>
+
+@{
+    ViewBag.Title = "RestaurantTags";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-default">
+            <div class="card-header" style="margin-inline: 20px">
+                <div class="pagetitle">
+                    <h1 class="mt-2">Etiquetas de restaurante</h1>
+                    <a href="@Url.Action("RestaurantTag", "RestaurantTag")" class="btn btn-add mt-2">Agregar</a>
+                </div>
+            </div>
+            <div class="card-body my-2">
+                <table class="datatable">
+                    <thead>
+                        <tr>
+                            <th>Etiqueta</th>
+                            <th>Restaurante</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Tag_name</td>
+                                <td>@item.Restaurant_name</td>
+                                <td style="text-align:center">
+                                    <a href="@Url.Action("EditRestaurantTag","RestaurantTag", new { q = item.RestaurantTag_Id })"><i class="bi bi-pencil-square"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
