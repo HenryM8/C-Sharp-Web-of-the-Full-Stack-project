@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CGWEB.Entities.ReviewEnt>
+
+@{
+    ViewBag.Title = "ReviewsByUser";
+}
+
+<div class="pagetitle">
+    <h1 class="mt-2">Mis reseñas</h1>
+    <p>Total: <span class="fw-bold text-primary">@Model.Count()</span></p>
+</div>
+
+<section class="row">
+    @foreach (var review in Model)
+    {
+        <article class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4">
+            <div class="mb-3 d-flex flex-column bg-white p-3 rounded-4 shadow-sm">
+                <span class="me-4">Valoraste: <a href="@Url.Action("ViewRestaurant", "Restaurant", new { q = review.Restaurant_id })" class="fw-bold text-primary">@review.Restaurant</a></span>
+                @if (review.Is_visible == true)
+                {
+                    <span>Estado: <i class="bi bi-eye text-success"></i></span>
+                }
+                else
+                {
+                    <span>Estado: <i class="bi bi-eye-slash text-danger"></i></span>
+                }
+            </div>
+            <div class="card rounded-4 overflow-hidden">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <img src="@review.UserImg" alt="user image" class="rounded-circle me-2" height="65" width="65" style="object-fit: cover" />
+                        <span class="card-title">@review.User</span>
+                    </div>
+                    <div class="d-flex">
+                        @if (review.User_id.ToString() == Session["User_id_session"].ToString())
+                        {
+                            <ul class="d-flex align-items-center list-unstyled">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link nav-profile d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                                        <i class="bi bi-three-dots-vertical ps-2 pe-1 d-md-block"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile mt-2 rounded-4 p-2" style="margin-inline-end: -14px !important">
+                                        <li>
+                                            <a class="dropdown-item d-flex align-items-cente btn-edit-review" href="@Url.Action("EditReview", "Review", new { q = review.Review_id })">
+                                                <i class="bi bi-pen"></i>
+                                                <span>Editar</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div onclick="deleteReview(@review.Review_id)" class="dropdown-item d-flex align-items-center btn-delete-review">
+                                                <i class="bi bi-trash3"></i>
+                                                <span>Eliminar</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-end" style="text-align: left; direction: rtl; unicode-bidi: bidi-override;">
+                            @for (int i = 5; i >= 1; i--)
+                            {
+                                if (review.Rating < i)
+                                {
+                                    <p style="color: grey; font-size: 32px">★</p>
+                                }
+                                else
+                                {
+                                    <p style="color: orange; font-size: 32px">★</p>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <p class="card-text" style="height: 120px; max-height: 200px; overflow: auto">@review.Review_content</p>
+                </div>
+                <span class="ps-4 text-secondary mb-3">@review.Review_date.ToString("yyyy/MM/dd")</span>
+            </div>
+        </article>
+    }
+</section>
+

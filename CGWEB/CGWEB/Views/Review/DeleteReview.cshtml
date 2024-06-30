@@ -1,0 +1,64 @@
+﻿@model CGWEB.Entities.ReviewEnt
+
+
+@{
+    ViewBag.Title = "Eliminar Reseña";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("DeleteReview", "Review", FormMethod.Post))
+{
+
+    <div class="row">
+
+        <div class="col-xl-12">
+
+            <div class="card card-default">
+
+                <div class="card-header">
+                    <h2>Cambiar Datos</h2>
+                </div>
+
+                @if (ViewBag.MsjPantalla != null)
+                {
+                    <div style="color:white" class="alert alert-primary" role="alert">
+                        @ViewBag.MsjPantalla
+                    </div>
+                }
+
+                <div class="card-body">
+                    <div class="media media-sm">
+                        <div class="media-body">
+                            <div class="row">
+
+                                <div class="col-lg-10">
+
+                                    @Html.HiddenFor(m => m.Review_id)
+
+
+                                    <div class="form-group col-md-12 mb-4">
+                                        @Html.TextBoxFor(m => m.Rating, new { @type = "text", @disabled = "true", @class = "form-control input-lg", @placeholder = "Rol" })
+                                    </div>
+                                    <div class="form-group col-md-12 mb-4">
+                                        @Html.TextBoxFor(m => m.Review_content, new { @type = "text", @disabled = "true", @class = "form-control input-lg", @placeholder = "Rol" })
+                                    </div>
+                                    <div class="form-group col-md-12 mb-4">
+                                        @Html.TextBoxFor(m => m.Review_date, new { @type = "text", @disabled = "true", @class = "form-control input-lg", @placeholder = "Rol" })
+                                    </div>
+
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary mb-2 btn-pill">Eliminar Reseña</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+}
+
+

@@ -1,0 +1,54 @@
+﻿@model CGWEB.Entities.ReviewEnt
+
+@{
+    ViewBag.Title = "Editar reseña";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pagetitle">
+    <h1 class="mt-2">Mi reseña</h1>
+</div>
+
+@using (Html.BeginForm("EditReview", "Review", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Detalles</h5>
+
+            <div class="row g-3">
+
+                @Html.HiddenFor(m => m.Review_id)
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.DropDownListFor(m => m.Restaurant_id, ViewBag.RestaurantList as List<SelectListItem>, new { @class = "form-select", @id = "floatingSelect", @aria_label = "Restaurant_id" })
+                        <label for="floatingSelect">Restaurante</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="raiting">
+                        @for (int i = 5; i >= 1; i--)
+                        {
+                            @Html.RadioButtonFor(r => r.Rating, i, new { @name = "stars", @class = "stars", @value = i, @id = "radio-" + i })
+                            @Html.Label("★", new { @for = "radio-" + i })
+                        }
+                    </div>
+                </div>
+
+                <h5 class="card-title p-2">Escribe tu reseña a continuación:</h5>
+
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextAreaFor(r => r.Review_content, new { @class = "form-control", @placeholder = "Contenido", @id = "floatingTextarea", @style = "height: 200px; resize: none;" })
+                        <label for="floatingTextarea">Contenido</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
