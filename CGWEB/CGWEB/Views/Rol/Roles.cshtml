@@ -1,0 +1,42 @@
+﻿@model IEnumerable<CGWEB.Entities.RolEnt>
+
+@{
+    ViewBag.Title = "Roles";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-default">
+            <div class="card-header" style="margin-inline: 20px">
+                <div class="pagetitle">
+                    <h1 class="mt-2">Roles</h1>
+                    <a href="@Url.Action("Rol", "Rol")" class="btn btn-add mt-2">Agregar</a>
+                </div>
+            </div>
+            <div class="card-body my-2">
+                <table class="datatable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Rol</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Rol_id</td>
+                                <td>@item.Rol_name</td>
+                                <td style="text-align:center">
+                                    <a href="@Url.Action("EditRol","Rol", new { q = item.Rol_id })"><i class="bi bi-pencil-square"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

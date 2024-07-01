@@ -1,0 +1,40 @@
+﻿@model CGWEB.Entities.RolEnt
+
+@{
+    ViewBag.Title = "AddRol";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pagetitle">
+    <h1 class="mt-2">Roles</h1>
+</div>
+
+@if (ViewBag.MsjPantalla != null)
+{
+    <div style="color:white" class="alert alert-danger text-danger" role="alert">
+        @ViewBag.MsjPantalla
+    </div>
+}
+
+@using (Html.BeginForm("AddRol", "Rol", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Detalles</h5>
+
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.Rol_name, new { @type = "text", @class = "form-control", @placeholder = "Nombre Rol" })
+                        <label for="floatingSelect">Nombre Rol</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
