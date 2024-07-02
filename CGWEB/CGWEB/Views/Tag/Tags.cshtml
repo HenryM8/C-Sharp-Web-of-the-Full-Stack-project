@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CGWEB.Entities.TagEnt>
+
+@{
+    ViewBag.Title = "Tags";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-default">
+            <div class="card-header" style="margin-inline: 20px">
+                <div class="pagetitle">
+                    <h1 class="mt-2">Etiquetas</h1>
+                    <a href="@Url.Action("Tag", "Tag")" class="btn btn-add mt-2">Agregar</a>
+                </div>
+            </div>
+            <div class="card-body my-2">
+                <table class="datatable">
+                    <thead>
+                        <tr>
+                            <th>Etiqueta</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Tag_name</td>
+                                <td style="text-align:center">
+                                    <a href="@Url.Action("EditTag","Tag", new { q = item.Tag_id })"><i class="bi bi-pencil-square"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
